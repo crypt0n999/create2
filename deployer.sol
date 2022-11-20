@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 contract Deployer {
 
     bytes public initCode;
+    address public deployedAddress;
     
     function  getInitCode() public {
         initCode = type(Test).creationCode;
@@ -16,6 +17,7 @@ contract Deployer {
         assembly {
             addr := create2(0, add(bytecode, 0x20), mload(bytecode), _salt)
         }
+        deployedAddress = addr;
         return addr;
   }
 }
